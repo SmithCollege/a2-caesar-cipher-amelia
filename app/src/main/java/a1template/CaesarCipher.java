@@ -2,6 +2,8 @@
 // Classes to build the project
 package a1template;
 
+import javax.management.openmbean.InvalidKeyException;
+
 public class CaesarCipher {
 
     /** Character array to store the letters in the alphabet in order */
@@ -19,27 +21,52 @@ public class CaesarCipher {
      * @param offset Offset to use when creating `cipher` of DynamicArray type
      */
     CaesarCipher(int offset){
-        // Fill in here
+        this.alphabet = new Character[26];
+        for (int i = 0; i < 26; i++) {
+            alphabet[i] = (char)('a' + i);
+        }
+        this.offset = offset;
+        this.cipher = new DynamicArray<Character>(offset, alphabet);
     }
 
     /** Implementation of linear search that looks through the alphabet
-     * array to identify the position of the passed value
      * @param val character to search for
      * @return int indicating position of val in the alphabet array
      */
-    public int findIndex(char val){
-        // This is a stub -- fill in the code and return the
-        // value you calculate
-        return 0;
+    public int findIndex(Character val) {
+        if (Character.isLowerCase(val) == false) {
+            Character.toLowerCase(val);
+        }
+        for (int i = 0; i < 26; i++) {
+            if (alphabet[i] == val) {
+                return i;
+            }
+        }
+        throw new InvalidKeyException("ERROR: character not found");
     }
 
     /** Encode a message using the cipher
      * @param T message to encode
      * @return encoded message */  
-    public String encode(String message){
-        // Fill in here and update return statement based on your code
-        return new String(); 
-     }
+    public String encode(String message) {
+        char[] charArray = message.toCharArray();
+        outer:
+        for (int i = 0; i < charArray.length; i++) {
+            if (Character.isLetter(charArray[i])) {
+                System.out.println("Letter detected.");
+                char thisChar = Character.toLowerCase(charArray[i]);
+                int index = findIndex(thisChar);
+                charArray[i] = get(index);
+                System.out.println(get(index));
+            }  else {
+                charArray[i] = charArray[i];
+                continue outer;
+            }
+            }
+        String str = new String(charArray);
+        System.out.println(str);
+        return str;
+    }
 
     /** Decode a message using the cipher 
      * @param String message to decode
@@ -47,11 +74,38 @@ public class CaesarCipher {
      * @return decoded message
     */
     public String decode(String message){
-        // Fill in here and update return statement based on your code
-        return new String();
+        char[] charArray = message.toCharArray();
+        outer:
+        for (int n = 0; n < charArray.length; n++) {
+            if (Character.isLetter(charArray[n])) {
+                char thisChar = Character.toLowerCase(charArray[n]);
+                int i = findIndex(thisChar);
+                charArray[n] = cipher.get(i, offset);
+            } else {
+                continue outer;
+            }
+        }
+        String str = new String(charArray);
+        return str;
     }
 
+    public char get(int index) {
+        int adjustedI = index - offset;
+        if (adjustedI < 0) {
+            return alphabet[alphabet.length + adjustedI];
+        } else if (adjustedI >= alphabet.length){
+            return alphabet[adjustedI - alphabet.length];
+        } else {
+            return alphabet[adjustedI];
+        } 
+    }
+
+    
+
     public static void main(String[] args) {
+        CaesarCipher testCipher = new CaesarCipher(8);
+        String encodedMessage = testCipher.encode("this is a secret message");
+
     }
     
 }
