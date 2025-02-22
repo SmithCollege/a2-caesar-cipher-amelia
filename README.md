@@ -4,17 +4,20 @@
 
 Your readme should include the following information. Each student needs to submit all of this information independently, even when pair programming. 
 
-Programming Partner Name:
+Programming Partner Name: n/a
 
-Other Collaborators (and kudos to people who were especially helpful):
+Other Collaborators (and kudos to people who were especially helpful): n/a
 
-References Used:
+References Used: Generative AI used for the syntax of some built-in Java commands I wasn't familiar with. 
 
 
 ## Reflection Questions
 
 What was your favorite part of this assignment?
+- I really enjoyed debugging! Going through the CaesarCipher tests & actually sketching out the arrays & the implementations on a whiteboard was really fun and interesting -- it was the only way I could visualize this particular assignment, but I think I'm going to employ this strategy more going forward. 
 
 What was most challenging about this assignment?
+- Figuring out the Gradle & GitHub classroom interface, making sure it commits & pushes, building the code with Gradle
 
 General comments on your experience with this assignment:
+- It was pretty daunting / challenging at first and I didn't really know where to start but I just kept coding and eventually figured it out!
